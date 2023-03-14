@@ -20,6 +20,7 @@ specifiers:
   prettier: ^2.8.2
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-router-dom: ^6.9.0
   react-scripts: 5.0.1
   sass: ^1.57.1
   typescript: ^4.9.4
@@ -27,9 +28,11 @@ specifiers:
 
 dependencies:
   '@apollo/client': 3.7.10_gdcq4dv6opitr3wbfwyjmanyra
+  '@graphql-typed-document-node/core': 3.1.2_graphql@16.6.0
   normalize.css: 8.0.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-router-dom: 6.9.0_biqbaboplfbrettd7655fr4n2y
   react-scripts: 5.0.1_zihfapwqcedwv4y2u5wgcndcae
   sass: 1.59.2
   web-vitals: 3.3.0
@@ -38,7 +41,6 @@ devDependencies:
   '@graphql-codegen/cli': 3.2.2_kedzoti4cg6xiecsge2tvwy5ne
   '@graphql-codegen/client-preset': 2.1.1_graphql@16.6.0
   '@graphql-codegen/typed-document-node': 3.0.2_graphql@16.6.0
-  '@graphql-typed-document-node/core': 3.1.2_graphql@16.6.0
   '@types/node': 18.15.3
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -2639,6 +2641,11 @@ packages:
       source-map: 0.7.4
       webpack: 5.76.1
       webpack-dev-server: 4.11.1_webpack@5.76.1
+    dev: false
+
+  /@remix-run/router/1.4.0:
+    resolution: {integrity: sha512-BJ9SxXux8zAg991UmT8slpwpsd31K1dHHbD3Ba4VzD+liLQ4WAMSxQp2d2ZPRPfN0jN2NPRowcSSoM7lCaF08Q==}
+    engines: {node: '>=14'}
     dev: false
 
   /@repeaterjs/repeater/3.0.4:
@@ -9531,6 +9538,29 @@ packages:
   /react-refresh/0.11.0:
     resolution: {integrity: sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /react-router-dom/6.9.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-/seUAPY01VAuwkGyVBPCn1OXfVbaWGGu4QN9uj0kCPcTyNYgL1ldZpxZUpRU7BLheKQI4Twtl/OW2nHRF1u26Q==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.4.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-router: 6.9.0_react@18.2.0
+    dev: false
+
+  /react-router/6.9.0_react@18.2.0:
+    resolution: {integrity: sha512-51lKevGNUHrt6kLuX3e/ihrXoXCa9ixY/nVWRLlob4r/l0f45x3SzBvYJe3ctleLUQQ5fVa4RGgJOTH7D9Umhw==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.4.0
+      react: 18.2.0
     dev: false
 
   /react-scripts/5.0.1_zihfapwqcedwv4y2u5wgcndcae:
