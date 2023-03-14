@@ -7,6 +7,7 @@ const GET_CASTS = gql(`
     narrowcastingEntries {
       ... on narrowcasting_slides_Entry {
         slug
+        enabled
       }
     }
   }
@@ -23,9 +24,11 @@ export default function NarrowcastSelector(): JSX.Element {
   if (error) return <p>Error: {error.message}</p>;
   return (
     <div>
-      {data?.narrowcastingEntries?.map((e) => (
-        <p>{e?.slug}</p>
-      ))}
+      {data?.narrowcastingEntries && data.narrowcastingEntries.length >= 1 ? (
+        data?.narrowcastingEntries?.map((e) => e?.enabled && <p>{e?.slug}</p>)
+      ) : (
+        <p>No narrowcasting entries were found.</p>
+      )}
     </div>
   );
 }
