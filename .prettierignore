@@ -1,2 +1,3 @@
 /public/
+/src/__generated__/
 *.svg

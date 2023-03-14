@@ -1,3 +1,6 @@
+# project
+/src/__generated__/
+
 # dependencies
 /node_modules
 /.pnp
