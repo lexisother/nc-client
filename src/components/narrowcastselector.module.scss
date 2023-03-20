@@ -1,3 +1,5 @@
+@use '../colors.scss';
+
 .grid {
   display: grid;
   max-width: 720px;
@@ -5,14 +7,16 @@
   grid-template-columns: repeat(3, 1fr);
   column-gap: 5px;
   row-gap: 5px;
-}
-.grid a {
-  text-decoration: none;
-  color: inherit;
-}
-.grid a:hover {
-  text-decoration: none;
-  color: inherit;
+
+  & a {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
 }
 
 .cast {
@@ -23,11 +27,12 @@
   align-items: center;
   height: 10rem;
   border-radius: 0.5rem;
-  background-color: var(--background-light);
-}
-.cast p {
-  margin: 0;
-}
-.cast:hover {
-  background-color: var(--background-secondary);
+  background-color: colors.$background-light;
+
+  & p {
+    margin: 0;
+  }
+  &:hover {
+    background-color: colors.$background-secondary;
+  }
 }

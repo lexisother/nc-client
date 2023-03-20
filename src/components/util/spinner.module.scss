@@ -1,3 +1,7 @@
+@use "../../colors.scss";
+
+// TODO: Investigate why this stylehseet doesn't want to accept nesting
+
 .container {
   position: absolute;
   width: 32px;
@@ -13,7 +17,7 @@
   content: '';
   position: absolute;
   animation: waiting-spinner 1.8s infinite ease-in-out;
-  background-color: var(--blurple);
+  background-color: colors.$blurple;
   width: 10px;
   height: 10px;
   left: 0;
