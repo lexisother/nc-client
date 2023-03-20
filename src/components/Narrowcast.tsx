@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { gql } from '../__generated__';
 import { useQuery } from '@apollo/client';
 import Spinner from './util/Spinner';
 import Slide from './Slide';
-import {Swiper as ISwiper} from "swiper";
+import { Swiper as ISwiper } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
@@ -25,6 +25,7 @@ const GET_SLIDES = gql(`
               id
               url
               width
+              kind
             }
             enabled
           }
@@ -34,6 +35,7 @@ const GET_SLIDES = gql(`
               id
               url
               width
+              kind
             }
           }
           ... on narrowcastingSlides_text_BlockType {
@@ -57,7 +59,7 @@ export enum SLIDE_TYPES {
 export default function Narrowcast(): JSX.Element {
   const { slug } = useParams();
   const { loading, error, data } = useQuery(GET_SLIDES, { variables: { slug } });
-  
+
   // We disrupt this broadcast with some LONG SETUP {{{
   const [handlers, setHandlers] = React.useState<Record<string, () => void>>();
   const [swiper, setSwiper] = React.useState<ISwiper>();
@@ -105,11 +107,7 @@ export default function Narrowcast(): JSX.Element {
           )}
           {s?.__typename === SLIDE_TYPES.MEDIA && (
             <SwiperSlide>
-              <Slide
-                type={s.__typename}
-                mediaUrl={s.media[0]?.url!}
-                mediaWidth={s.media[0]?.width!}
-              />
+              <Slide type={s.__typename} media={s.media[0]!} />
             </SwiperSlide>
           )}
           {s?.__typename === SLIDE_TYPES.TEXTMEDIA && (
@@ -119,8 +117,7 @@ export default function Narrowcast(): JSX.Element {
                 text={s.text!}
                 textColour={s.textColour!}
                 backgroundColour={s.backgroundColour!}
-                mediaUrl={s.media[0]?.url!}
-                mediaWidth={s.media[0]?.width!}
+                media={s.media[0]!}
               />
             </SwiperSlide>
           )}
