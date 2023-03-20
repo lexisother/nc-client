@@ -4,10 +4,27 @@
   flex-direction: column;
 }
 
-.spacer-vert {
+.spacerVert {
   flex-grow: 1;
 }
 
-.spacer-hor {
+.spacerHor {
   flex-grow: 1;
+}
+
+.inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.textContent {
+  font-size: 5vw;
+}
+
+.media {
+  flex: 30 0 auto;
+  height: 35vw;
+  background-position: center;
+  background-size: cover;
 }
