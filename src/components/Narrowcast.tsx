@@ -3,6 +3,9 @@ import { gql } from '../__generated__';
 import { useQuery } from '@apollo/client';
 import Spinner from './util/Spinner';
 import Slide from './Slide';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
 
 const GET_SLIDES = gql(`
   query GetSlides($slug: [String]) {
@@ -53,40 +56,48 @@ export default function Narrowcast(): JSX.Element {
   const { slug } = useParams();
   const { loading, error, data } = useQuery(GET_SLIDES, { variables: { slug } });
   if (loading) return <Spinner />;
+  if (error) throw new Error(error.message);
 
+  // TODO: Any better way to do this? I *need* to do the type assertions so TS
+  // doesn't complain.
   let slides = data?.narrowcastingEntries?.[0]?.narrowcastingSlides;
-  console.log(slides);
   return (
-    <>
+    <Swiper direction="horizontal" loop={true}>
       {slides?.map((s) => (
         <>
           {s?.__typename === SLIDE_TYPES.TEXT && (
-            <Slide
-              type={s.__typename}
-              text={s.text!}
-              textColour={s.textColour!}
-              backgroundColour={s.backgroundColour!}
-            />
+            <SwiperSlide>
+              <Slide
+                type={s.__typename}
+                text={s.text!}
+                textColour={s.textColour!}
+                backgroundColour={s.backgroundColour!}
+              />
+            </SwiperSlide>
           )}
           {s?.__typename === SLIDE_TYPES.MEDIA && (
-            <Slide
-              type={s.__typename}
-              mediaUrl={s.media[0]?.url!}
-              mediaWidth={s.media[0]?.width!}
-            />
+            <SwiperSlide>
+              <Slide
+                type={s.__typename}
+                mediaUrl={s.media[0]?.url!}
+                mediaWidth={s.media[0]?.width!}
+              />
+            </SwiperSlide>
           )}
           {s?.__typename === SLIDE_TYPES.TEXTMEDIA && (
-            <Slide
-              type={s.__typename}
-              text={s.text!}
-              textColour={s.textColour!}
-              backgroundColour={s.backgroundColour!}
-              mediaUrl={s.media[0]?.url!}
-              mediaWidth={s.media[0]?.width!}
-            />
+            <SwiperSlide>
+              <Slide
+                type={s.__typename}
+                text={s.text!}
+                textColour={s.textColour!}
+                backgroundColour={s.backgroundColour!}
+                mediaUrl={s.media[0]?.url!}
+                mediaWidth={s.media[0]?.width!}
+              />
+            </SwiperSlide>
           )}
         </>
       ))}
-    </>
+    </Swiper>
   );
 }

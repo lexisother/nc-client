@@ -1,0 +1,13 @@
+.slide {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.spacer-vert {
+  flex-grow: 1;
+}
+
+.spacer-hor {
+  flex-grow: 1;
+}
