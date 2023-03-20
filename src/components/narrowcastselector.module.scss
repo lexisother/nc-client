@@ -1,0 +1,33 @@
+.grid {
+  display: grid;
+  max-width: 720px;
+  margin: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 5px;
+  row-gap: 5px;
+}
+.grid a {
+  text-decoration: none;
+  color: inherit;
+}
+.grid a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.cast {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+  border-radius: 0.5rem;
+  background-color: var(--background-light);
+}
+.cast p {
+  margin: 0;
+}
+.cast:hover {
+  background-color: var(--background-secondary);
+}
