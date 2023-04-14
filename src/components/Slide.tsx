@@ -16,7 +16,7 @@ interface SlideProps {
 }
 
 // Hi. Welcome to conditional hell. In the twig days, I used to simply
-// `include` a differentl template with minor changes to each one based on the
+// `include` a different template with minor changes to each one based on the
 // slide type. We have access to a much more powerful toolset now, so why not
 // ~~leverage~~ abuse it?
 export default function Slide({

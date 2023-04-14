@@ -36,20 +36,23 @@ export default function NarrowcastSelector(): JSX.Element {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className={styles.grid}>
-      {data?.narrowcastingEntries && data.narrowcastingEntries.length >= 1 ? (
-        data?.narrowcastingEntries?.map(
-          (e) =>
-            e?.enabled && (
-              <Link to={`/${e.slug}`} className={styles.cast}>
-                <p>{e.title}</p>
-                <p>{pluralise(e.narrowcastingSlides.length, 'slide', 's', '', false)}</p>
-              </Link>
-            ),
-        )
-      ) : (
-        <p>No narrowcasting entries were found.</p>
-      )}
+    <div>
+      <h1 className={styles.title}>Available casts</h1>
+      <div className={styles.grid}>
+        {data?.narrowcastingEntries && data.narrowcastingEntries.length >= 1 ? (
+          data?.narrowcastingEntries?.map(
+            (e) =>
+              e?.enabled && (
+                <Link to={`/${e.slug}`} className={styles.cast}>
+                  <p>{e.title}</p>
+                  <p>{pluralise(e.narrowcastingSlides.length, 'slide', 's', '', false)}</p>
+                </Link>
+              ),
+          )
+        ) : (
+          <p>No narrowcasting entries were found.</p>
+        )}
+      </div>
     </div>
   );
 }

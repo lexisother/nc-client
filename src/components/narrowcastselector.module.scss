@@ -1,5 +1,9 @@
 @use '../colors.scss';
 
+.title {
+  margin: 1rem;
+}
+
 .grid {
   display: grid;
   max-width: 720px;
