@@ -5,6 +5,7 @@ import styles from './narrowcastselector.module.scss';
 import { Link } from 'react-router-dom';
 import { pluralise } from '../lib';
 import { useIdb } from '../storage';
+import Error from './util/Error';
 
 const GET_CASTS = gql(`
   query GetCasts {
@@ -35,7 +36,19 @@ export default function NarrowcastSelector(): JSX.Element {
   const { loading, error, data } = useQuery(GET_CASTS);
   const [lastViewed, _setLastViewed] = useIdb('lastViewed', null);
   if (loading) return <Spinner />;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) {
+    return (
+      <>
+        <div style={{ flexGrow: 1 }} />
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <div style={{ flexGrow: 1 }} />
+          <Error error={error} />
+          <div style={{ flexGrow: 1 }} />
+        </div>
+        <div style={{ flexGrow: 1 }} />
+      </>
+    );
+  }
 
   if (lastViewed) {
     window.location.pathname = lastViewed;
