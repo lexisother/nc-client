@@ -73,20 +73,20 @@ export default function Narrowcast(): JSX.Element {
   const [handlers, setHandlers] = React.useState<Record<string, () => void>>();
   const [swiper, setSwiper] = React.useState<ISwiper>();
 
-  const listener = (e: KeyboardEvent): void => {
-    if (!handlers) return;
-    const k = e.key;
-    // This notation stops ESLint from complaining about `no-prototype-builtins`.
-    if (Object.prototype.hasOwnProperty.call(handlers, k)) {
-      handlers[k]();
-    }
-  };
-
   React.useEffect(() => {
     if (!swiper) return undefined;
     let ArrowLeft = (): void => swiper.slidePrev();
     let ArrowRight = (): void => swiper.slideNext();
     setHandlers({ ArrowLeft, ArrowRight });
+
+    const listener = (e: KeyboardEvent): void => {
+      if (!handlers) return;
+      const k = e.key;
+      // This notation stops ESLint from complaining about `no-prototype-builtins`.
+      if (Object.prototype.hasOwnProperty.call(handlers, k)) {
+        handlers[k]();
+      }
+    };
     document.addEventListener('keydown', listener);
 
     return () => document.removeEventListener('keydown', listener);
@@ -94,15 +94,15 @@ export default function Narrowcast(): JSX.Element {
   // }}}
   // Resuming regular programme....
 
-  if (loading) return <Spinner />;
-  if (error) throw new Error(error.message);
-
   // This simply stores the slug of the cast we're viewing into IDB, so the
   // selector can access it. When the selector loads, it checks if this value
   // exists, and if so, immediately load that cast.
   React.useEffect(() => {
     setLastViewed(slug);
-  }, [slug]);
+  }, [slug, setLastViewed]);
+
+  if (loading) return <Spinner />;
+  if (error) throw new Error(error.message);
 
   // TODO: Any better way to do this? I *need* to do the type assertions so TS
   // doesn't complain.

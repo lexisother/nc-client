@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.scss';
 import Narrowcast from './components/Narrowcast';
 import NarrowcastSelector from './components/NarrowcastSelector';

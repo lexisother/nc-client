@@ -1,4 +1,4 @@
-extends: ['eslint-config-dmitmel/presets/node', 'react-hooks/recommended']
+extends: ['eslint-config-dmitmel/presets/node', 'plugin:react-hooks/recommended']
 env:
   browser: true
 

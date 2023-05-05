@@ -2,10 +2,9 @@ import { gql } from '../__generated__';
 import { useQuery } from '@apollo/client';
 import Spinner from './util/Spinner';
 import styles from './narrowcastselector.module.scss';
-import { Link, redirect, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { pluralise } from '../lib';
 import { useIdb } from '../storage';
-import { useEffect } from 'react';
 
 const GET_CASTS = gql(`
   query GetCasts {
