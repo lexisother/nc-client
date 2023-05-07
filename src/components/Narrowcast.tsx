@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { gql } from '../__generated__';
 import { useQuery } from '@apollo/client';
@@ -71,7 +71,12 @@ export default function Narrowcast(): JSX.Element {
   // doing things as "Reacty" as possible. Could that potentially turn into
   // horrible shitcode? Yes. Does it assert things work as expected? Maybe.
   const [handlers, setHandlers] = React.useState<Record<string, () => void>>();
+  const handlersRef = useRef<Record<string, () => void>>();
   const [swiper, setSwiper] = React.useState<ISwiper>();
+
+  React.useEffect(() => {
+    handlersRef.current = handlers;
+  }, [handlers]);
 
   React.useEffect(() => {
     if (!swiper) return undefined;
@@ -80,17 +85,17 @@ export default function Narrowcast(): JSX.Element {
     setHandlers({ ArrowLeft, ArrowRight });
 
     const listener = (e: KeyboardEvent): void => {
-      if (!handlers) return;
+      if (!handlersRef.current) return;
       const k = e.key;
       // This notation stops ESLint from complaining about `no-prototype-builtins`.
-      if (Object.prototype.hasOwnProperty.call(handlers, k)) {
-        handlers[k]();
+      if (Object.prototype.hasOwnProperty.call(handlersRef.current, k)) {
+        handlersRef.current[k]();
       }
     };
     document.addEventListener('keydown', listener);
 
     return () => document.removeEventListener('keydown', listener);
-  }, [swiper, handlers]);
+  }, [swiper, handlersRef]);
   // }}}
   // Resuming regular programme....
 
@@ -109,36 +114,44 @@ export default function Narrowcast(): JSX.Element {
   let slides = data?.narrowcastingEntries?.[0]?.narrowcastingSlides;
   return (
     <Swiper direction="horizontal" loop={true} onSwiper={setSwiper}>
-      {slides?.map((s) => (
-        <>
-          {s?.__typename === SLIDE_TYPES.TEXT && (
-            <SwiperSlide>
-              <Slide
-                type={s.__typename}
-                text={s.text!}
-                textColour={s.textColour!}
-                backgroundColour={s.backgroundColour!}
-              />
-            </SwiperSlide>
-          )}
-          {s?.__typename === SLIDE_TYPES.MEDIA && (
-            <SwiperSlide>
-              <Slide type={s.__typename} media={s.media[0]!} />
-            </SwiperSlide>
-          )}
-          {s?.__typename === SLIDE_TYPES.TEXTMEDIA && (
-            <SwiperSlide>
-              <Slide
-                type={s.__typename}
-                text={s.text!}
-                textColour={s.textColour!}
-                backgroundColour={s.backgroundColour!}
-                media={s.media[0]!}
-              />
-            </SwiperSlide>
-          )}
-        </>
-      ))}
+      {slides?.map((s, i) => {
+        switch (s?.__typename) {
+          case SLIDE_TYPES.TEXT: {
+            return (
+              <SwiperSlide key={i}>
+                <Slide
+                  type={s.__typename}
+                  text={s.text!}
+                  textColour={s.textColour!}
+                  backgroundColour={s.backgroundColour!}
+                />
+              </SwiperSlide>
+            );
+          }
+          case SLIDE_TYPES.MEDIA: {
+            return (
+              <SwiperSlide key={i}>
+                <Slide type={s.__typename} media={s.media[0]!} />
+              </SwiperSlide>
+            );
+          }
+          case SLIDE_TYPES.TEXTMEDIA: {
+            return (
+              <SwiperSlide key={i}>
+                <Slide
+                  type={s.__typename}
+                  text={s.text!}
+                  textColour={s.textColour!}
+                  backgroundColour={s.backgroundColour!}
+                  media={s.media[0]!}
+                />
+              </SwiperSlide>
+            );
+          }
+          default:
+            return null;
+        }
+      })}
     </Swiper>
   );
 }
