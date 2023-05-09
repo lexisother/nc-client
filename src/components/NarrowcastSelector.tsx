@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { pluralise } from '../lib';
 import { useIdb } from '../storage';
 import Error from './util/Error';
+import { useState } from 'react';
 
 const GET_CASTS = gql(`
   query GetCasts {
@@ -35,14 +36,20 @@ const GET_CASTS = gql(`
 export default function NarrowcastSelector(): JSX.Element {
   const { loading, error, data } = useQuery(GET_CASTS);
   const [lastViewed, _setLastViewed] = useIdb('lastViewed', null);
+  const [time, setTime] = useState(10);
   if (loading) return <Spinner />;
   if (error) {
+    new Promise(() => {
+      setTimeout(() => window.location.reload(), 10000);
+      setTimeout(() => setTime(time - 1), 1000);
+    });
+    // Keeping that FyF spirit alive ;)
     return (
       <>
         <div style={{ flexGrow: 1 }} />
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <div style={{ flexGrow: 1 }} />
-          <Error error={error} />
+          <Error error={error} time={time} />
           <div style={{ flexGrow: 1 }} />
         </div>
         <div style={{ flexGrow: 1 }} />
