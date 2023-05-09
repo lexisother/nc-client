@@ -39,10 +39,13 @@ export default function NarrowcastSelector(): JSX.Element {
   const [time, setTime] = useState(10);
   if (loading) return <Spinner />;
   if (error) {
+    // Boo hoo. I am not making a `sleep` util.
+    // eslint-disable-next-line no-new
     new Promise(() => {
       setTimeout(() => window.location.reload(), 10000);
       setTimeout(() => setTime(time - 1), 1000);
     });
+
     // Keeping that FyF spirit alive ;)
     return (
       <>
