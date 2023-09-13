@@ -53,8 +53,8 @@ export default function Slide({
     if (media.kind === 'image')
       return (
         <div
-          className={styles.media}
-          style={{ height: '100%', backgroundImage: `url(${media.url})` }}
+          className={`${styles.media} ${styles.mediaStandalone}`}
+          style={{ backgroundImage: `url(${media.url})` }}
         />
       );
     if (media.kind === 'video') return <video className={styles.media} src={media.url!} />;
