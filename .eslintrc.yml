@@ -10,7 +10,7 @@ plugins: ['prettier']
 
 rules:
   prettier/prettier:
-    - error
+    - warn
   node/no-unsupported-features/es-syntax:
     - error
     - ignores:
