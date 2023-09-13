@@ -33,7 +33,8 @@ export default function Slide({
           {media && (
             <>
               {media.kind === 'image' && (
-                <div className={styles.media} style={{ backgroundImage: `url(${media.url})` }} />
+                // <div className={styles.media} style={{ backgroundImage: `url(${media.url})` }} />
+                <img className={styles.media} src={media.url!} />
               )}
               {media.kind === 'video' && <video className={styles.media} src={media.url!} />}
             </>
