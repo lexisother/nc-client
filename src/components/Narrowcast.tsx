@@ -47,6 +47,7 @@ const GET_SLIDES = gql(`
           ... on narrowcastingSlides_text_BlockType {
             enabled
             text
+            textAlignment
             textColour
             backgroundColour
             autoplaySpeed
@@ -139,6 +140,7 @@ export default function Narrowcast(): JSX.Element {
                 <Slide
                   type={s.__typename}
                   text={s.text!}
+                  textAlignment={s.textAlignment!}
                   textColour={s.textColour!}
                   backgroundColour={s.backgroundColour!}
                 />

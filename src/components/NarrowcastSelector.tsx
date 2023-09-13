@@ -4,7 +4,7 @@ import Spinner from './util/Spinner';
 import styles from './narrowcastselector.module.scss';
 import { Link } from 'react-router-dom';
 import { pluralise } from '../lib';
-import { useIdb } from '../storage';
+// import { useIdb } from '../storage';
 import Error from './util/Error';
 import { useState } from 'react';
 
@@ -35,7 +35,7 @@ const GET_CASTS = gql(`
 
 export default function NarrowcastSelector(): JSX.Element {
   const { loading, error, data } = useQuery(GET_CASTS);
-  const [lastViewed, _setLastViewed] = useIdb('lastViewed', null);
+  // const [lastViewed, _setLastViewed] = useIdb('lastViewed', null);
   const [time, setTime] = useState(10);
   if (loading) return <Spinner />;
   if (error) {
@@ -60,9 +60,11 @@ export default function NarrowcastSelector(): JSX.Element {
     );
   }
 
-  if (lastViewed) {
-    window.location.pathname = lastViewed;
-  }
+  // Maybe pop up a dialog instead that counts down asking if you want to cancel
+  // autonavigation.
+  // if (lastViewed) {
+  //   window.location.pathname = lastViewed;
+  // }
 
   return (
     <div>

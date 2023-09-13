@@ -3,6 +3,7 @@ import styles from './slides/styles.module.scss';
 interface SlideProps {
   type: string;
   text?: string;
+  textAlignment?: string;
   textColour?: string;
   backgroundColour?: string;
   media?: {
@@ -21,6 +22,7 @@ interface SlideProps {
 // ~~leverage~~ abuse it?
 export default function Slide({
   text,
+  textAlignment,
   textColour,
   backgroundColour,
   media,
@@ -39,12 +41,13 @@ export default function Slide({
               {media.kind === 'video' && <video className={styles.media} src={media.url!} />}
             </>
           )}
-          <div className={styles.spacerHor}></div>
+          {(media || textAlignment === 'center' || textAlignment === 'right') && <div className={styles.spacerHor}></div>}
           <div
             className={styles.textContent}
-            style={{ color: textColour, ...(media ? { width: '40%' } : {}) }}>
+            style={{ color: textColour, paddingLeft: textAlignment === 'left' ? '3rem' : '', paddingRight: textAlignment === 'right' ? '3rem' : '' /*...(media ? { width: '35%' } : {}) */ }}>
             {text}
           </div>
+          {(media || textAlignment === 'left' || textAlignment === 'center') && <div className={styles.spacerHor}></div>}
         </div>
         <div className={styles.spacerVert}></div>
       </div>
@@ -60,6 +63,6 @@ export default function Slide({
     if (media.kind === 'video') return <video className={styles.media} src={media.url!} />;
     else return <h1>UNSUPPORTED MEDIA TYPE</h1>;
   } else {
-    return <h1>UNSUPPORTED SLIDE TYPE.</h1>;
+    return <h1>UNSUPPORTED SLIDE TYPE</h1>;
   }
 }
